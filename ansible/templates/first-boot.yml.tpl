@@ -55,7 +55,7 @@
      find:
        paths: /dev
        file_type: any
-       patterns: "local0,xvdg"
+       patterns: "local0,xvdg,vdb"
      register: dev_files
      when: use_local_device|bool == true
 
@@ -82,7 +82,7 @@
    - name: "Setup instance hostname"
      hostname: name="{{ ansible_hostname | truncate(64, False, '') }}"
 
-   - name: "Setup instance AWS Hosts file"
+   - name: "Setup instance Hosts file"
      lineinfile: dest=/etc/hosts
                  regexp='^{{ ip_address }}.*'
                  line="{{ ip_address }} {{ ansible_hostname | truncate(64, False, '') }}"
