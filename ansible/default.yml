@@ -8,6 +8,11 @@ use_local_device: false
 # Run the mapping/symlink of device via ansible instead of udev. Sould be false if building an ami.
 nvme_mapping_run: false
 
+# user's home where playbooks will be run from
+install_user: "{% if ansible_system_vendor == \"Scaleway\" %}root{% else %}admin{% endif %}"
+install_user_group: "{{ install_user }}"
+install_user_home: "{% if install_user == \"root\" %}/root{% else %}/home/{{ install_user }}{% endif %}"
+
 concourse_worker: yes
 # Don't start as we don't want worker to start during the build
 concourse_worker_name: "$(hostname)"
